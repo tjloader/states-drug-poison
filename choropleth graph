@@ -1,0 +1,16 @@
+import plotly.express as px
+
+# Ensure the 'Year' column is of the correct type for the slider
+merged_geo_df['Year'] = merged_geo_df['Year'].astype(str)
+
+fig = px.choropleth(merged_geo_df,
+                    geojson=merged_geo_df.geometry,
+                    locations=merged_geo_df.index,
+                    color='Crude Death Rate',
+                    hover_name=merged_geo_df.index,
+                    hover_data=['Deaths', 'Population', 'Crude Death Rate'],
+                    animation_frame='Year',  # Use 'Year' for the animation frame
+                    scope='usa',
+                    title='Drug Poisoning Crude Death Rate by State Over Time',
+                    color_continuous_scale='RdYlGn_r') # Use a diverging color scale with red for high and green for low
+fig.show()
